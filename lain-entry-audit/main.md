@@ -39,9 +39,9 @@ bibliography: ref.bib
 在 [@fig:enterContainer] 中，`entry` 还把 `stdin` 写入了 `MySQL`，这是为了将来检
 索用户命令。效果如 [@fig:searchCommands] 所示，可以按用户名、应用名或者命令内容
 等等检索历史命令，以便进行审计。`stdin` 是二进制的字节流，怎么把它变成一系列的用
-户命令呢？首先，回车键（13）是一行用户命令结束的标志，我们以此对 `stdin` 进行分
-割；其次，我们假定用户使用 `Unicode` 字符集[^unicodePresume]，先把字节流转换成
-`Unicode` 码位[^codePoint]流，最终使用 `utf-8` 编码存入 `MySQL`。
+户命令呢？首先，回车键[^asciiCR]是一行用户命令结束的标志，我们以此对 `stdin` 进
+行分割；其次，我们假定用户使用 `Unicode` 字符集[^unicodePresume]，先把字节流转换
+成`Unicode` 码位[^codePoint]流，最终使用 `utf-8` 编码存入 `MySQL`。
 
 ![用户命令的检索](fig/search-commands.png){#fig:searchCommands}
 
@@ -141,5 +141,6 @@ grant select, insert on entry.commands to entry@'xxx';
 
 [^unicodePresume]: 当前大部分终端均默认使用 `Unicode` 字符集，我们认为这是一个合理的假定。
 [^codePoint]: 即 `Unicode` 中的 `Code Point`。
+[^asciiCR]: 即字节 `13`（十进制）。
 
 ## 参考文献
