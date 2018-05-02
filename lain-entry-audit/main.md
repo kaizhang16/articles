@@ -8,6 +8,17 @@ tags:
 bibliography: ref.bib
 ---
 
+## 作者简介
+
+张凯：云平台开发工程师，来自宜信大数据创新中心云平台团队，参与设计和维护了
+[LAIN][lain] -- 一个基于 Docker 的私有云平台（PaaS）。[LAIN][lain] 面向技术栈多
+样、寻求高效运维方案的高速发展中的组织、DevOps 人力缺乏的创业公司以及个人开发者，
+提供了从编译、部署和扩容到日志、监控和报警的一揽子解决方案。
+
+&nbsp;
+
+&nbsp;
+
 在虚拟机时代，人们通过堡垒机进入虚拟机管理其中的应用；与此同时，堡垒机会验证用户
 的身份、记录用户的会话，以便进行安全审计。进入容器时代后，我们也需要类似的系统，
 一方面为开发人员提供管理应用的手段，另一方面则验证操作者的身份、记录操作者的行为，
@@ -41,7 +52,7 @@ bibliography: ref.bib
 等等检索历史命令，以便进行审计。`stdin` 是二进制的字节流，怎么把它变成一系列的用
 户命令呢？首先，回车键[^asciiCR]是一行用户命令结束的标志，我们以此对 `stdin` 进
 行分割；其次，我们假定用户使用 `Unicode` 字符集[^unicodePresume]，先把字节流转换
-成`Unicode` 码位[^codePoint]流，最终使用 `utf-8` 编码存入 `MySQL`。
+成 `Unicode` 码位[^codePoint]流，最终使用 `utf-8` 编码存入 `MySQL`。
 
 ![用户命令的检索](fig/search-commands.png){#fig:searchCommands}
 
@@ -75,15 +86,15 @@ alt-b            [27, 98]                    光标向左移动一个单词
 alt-f            [27, 102]                   光标向右移动一个单词
 Backspace/Delete 127                         删除光标前的一个字符
 
-: stdin 里的特殊字符 {#tbl:specialBytesInStdin}
+: stdin 里的控制字符 {#tbl:specialBytesInStdin}
 
 ### 来自 stdout/stderr 的用户命令
 
-其实用户命令并不全部来自 stdin。比如，当用户按下 `Tab` 键时，补全的内容会从
-stdout/stderr 传递过来，然后显示在用户的屏幕上；同样地，当用户按下向上的箭头时，
-上一个历史命令会从 stdout/stderr 传递过来，然后显示在用户的屏幕上；向下箭头也会
-触发 stdout/stderr 传递下一个历史命令。当检测到这些特殊字符时，我们会在 stdin 和
-stdout/stderr 之间同步数据，以复现用户的实际输入。
+其实用户命令并不全部来自 stdin。比如，当用户按下 `Tab` 键时，补全的内容会从容器
+的 `stdout/stderr` 传递过来，然后显示在用户的屏幕上；同样地，当用户按下向上的箭
+头时，上一个历史命令会从容器的 `stdout/stderr` 传递过来，然后显示在用户的屏幕上；
+向下箭头也会触发 `stdout/stderr` 传递下一个历史命令。当检测到这些特殊字符时，我
+们会在 `stdin` 和 `stdout/stderr` 之间同步数据，以复现用户的实际输入。
 
 ## 用户会话的回放
 
@@ -130,10 +141,7 @@ grant select, insert on entry.commands to entry@'xxx';
 
 最后，欢迎大家使用 [Entry][entry]。
 
-## 作者简介
-
-张凯：云平台开发工程师，来自于宜信大数据云平台团队。
-
+[lain]: https://laincloud.com/
 [entry]: https://github.com/laincloud/entry
 [sso]: https://github.com/laincloud/sso
 [lain-cli]: https://github.com/laincloud/lain-cli
